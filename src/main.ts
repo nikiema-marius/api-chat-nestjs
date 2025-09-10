@@ -9,6 +9,10 @@ async function bootstrap() {
     .setTitle('RéSocial API')
     .setDescription('RéSocial API description')
     .setVersion('1.0')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 
+      'JWT-auth', // Nom du schéma à utiliser dans les endpoints
+    )
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
