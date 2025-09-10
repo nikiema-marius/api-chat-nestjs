@@ -8,7 +8,12 @@ export class PostService {
     
 
     async getAllPosts() {
-        return this.prismaService.post.findMany();
+        return this.prismaService.post.findMany({
+            include: {
+                user: true,
+                comments: true,
+            }
+        });
     }
     async createPost(createPostDto: CreatePostDto, userId: number) {
         const {title, body} = createPostDto;

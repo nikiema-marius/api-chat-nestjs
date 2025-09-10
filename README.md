@@ -33,16 +33,17 @@ $ npm run test:e2e
 
 ## Endpoints
 
+### Endpoints posts
 ### Récupérer tous les posts
 - **GET** `/posts`
 - **Réponse :**
 ```json
 [
   {
-    "id": 1,
+    "id": "le id",
     "title": "Titre du post",
     "body": "Contenu du post",
-    "userId": 2
+    "userId": "le id de l'utilisateur"
   },
   ...
 ]
@@ -64,10 +65,10 @@ $ npm run test:e2e
 {
   "message": "Post created successfully",
   "post": {
-    "id": 2,
+    "id": "le id",
     "title": "Titre obligatoire",
     "body": "Contenu obligatoire",
-    "userId": 2
+    "userId": "le id de l'utilisateur"
   }
 }
 ```
@@ -76,7 +77,7 @@ $ npm run test:e2e
 - **PATCH** `/posts/:id`
 - **Headers :**
   - `Authorization: Bearer <token JWT>`
-- **Body :** (au moins un champ)
+- **Body :** (au moin   s un champ)
 ```json
 {
   "title": "Nouveau titre",
@@ -88,10 +89,10 @@ $ npm run test:e2e
 {
   "message": "Post updated successfully",
   "post": {
-    "id": 2,
+    "id": "le id",
     "title": "Nouveau titre",
     "body": "Nouveau contenu",
-    "userId": 2
+    "userId": "le id de l'utilisateur"
   }
 }
 ```
@@ -107,6 +108,50 @@ $ npm run test:e2e
 }
 ```
 
+### Endpoints user
+
+### Créer un utilisateur
+- **POST** `/auth/register`
+- **Body :**
+```json
+{
+  "email": "email obligatoire",
+  "password": "password obligatoire",
+  "username": "username obligatoire"
+}
+```
+- **Réponse :**
+```json
+{
+  "message": "User created successfully",
+  "user": {
+    "id": "le id",
+    "email": "email obligatoire",
+    "password": "password obligatoire"
+  }
+}
+```
+
+### Se connecter
+- **POST** `/auth/login`
+- **Body :**
+```json
+{
+  "email": "email obligatoire",
+  "password": "password obligatoire"
+}
+```
+- **Réponse :**
+```json
+{
+  "message": "User signed in successfully",
+  "user": {
+    "id": "le id",
+    "email": "email obligatoire",
+    "password": "password obligatoire"
+  }
+}
+```
 
 # test coverage
 $ npm run test:cov
