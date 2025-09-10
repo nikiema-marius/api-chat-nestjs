@@ -1,6 +1,7 @@
-import { Injectable} from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import { CreatePostDto } from './dto/CreatePostDto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdatePostDto } from './dto/updatePostDto';
 
 @Injectable()
 export class PostService {
@@ -10,8 +11,26 @@ export class PostService {
     async getAllPosts() {
         return this.prismaService.post.findMany({
             include: {
-                user: true,
-                comments: true,
+                user: {
+                    select:{
+                        userId: true,
+                        username: true,
+                        email: true,
+                        password: false,
+                    }
+                },
+                comments: {
+                    include:{
+                        user: {
+                            select:{
+                                userId: true,
+                                username: true,
+                                email: true,
+                                password: false,
+                            }
+                        }
+                    }
+                },
             }
         });
     }
@@ -29,6 +48,47 @@ export class PostService {
             post: post
           }
     }
+    async delete(postId: number, userId: number){
+       const post = await this.prismaService.post.findUnique({
+           where: {
+               postId
+           }
+       })
+       if(!post){
+           throw new NotFoundException('Post not found');
+       }
+       if(post.userId != userId) throw new ForbiddenException('You are not authorized to delete this post');
+       await this.prismaService.post.delete({
+           where: {
+               postId
+           }
+       })
+       return {
+           message: 'Post deleted successfully',
+       }
+    }
 
+    async update(postId: number, userId: number, updatePostDto: UpdatePostDto){
+        const post = await this.prismaService.post.findUnique({
+            where: {
+                postId
+            }
+        })
+        if(!post){
+            throw new NotFoundException('Post not found');
+        }
+        if(post.userId != userId) throw new ForbiddenException('You are not authorized to update this post'); 
+        await this.prismaService.post.update({
+            where: {
+                postId
+            },
+            data: {...updatePostDto}
+        })
+        return {
+            message: 'Post updated successfully',
+            post: post
+        }
+    }
+  
     
 }

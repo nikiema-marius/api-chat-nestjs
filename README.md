@@ -74,7 +74,7 @@ $ npm run test:e2e
 ```
 
 ### Modifier un post (authentification requise)
-- **PATCH** `/posts/:id`
+- **PATCH** `/posts/update/:id`
 - **Headers :**
   - `Authorization: Bearer <token JWT>`
 - **Body :** (au moin   s un champ)
@@ -98,7 +98,7 @@ $ npm run test:e2e
 ```
 
 ### Supprimer un post (authentification requise)
-- **DELETE** `/posts/:id`
+- **DELETE** `/posts/delete/:id`
 - **Headers :**
   - `Authorization: Bearer <token JWT>`
 - **Réponse :**
@@ -153,34 +153,34 @@ $ npm run test:e2e
 }
 ```
 
+### Documentation swagger
+- **GET** `/api`
+
+
+### Documentation swagger
+- **GET** `/api-json`
+
+
 # test coverage
 $ npm run test:cov
 ```
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
 ```bash
 $ npm install -g mau
 $ mau deploy
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
 
 ## Auteur
-- Projet réalisé par [Votre Nom]
+- Projet réalisé par [NIKIEMA MARIUS]
 
 ## Licence
 [MIT](LICENSE)
 
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

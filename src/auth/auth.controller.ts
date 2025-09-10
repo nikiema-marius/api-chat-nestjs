@@ -7,7 +7,9 @@ import { resetPasswordConfirmationDto } from './dto/resetPasswordConfirmationDto
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { deleteAccountDto } from './dto/deleteAccountDto';
+import { ApiBearerAuth, ApiTags, } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
 
@@ -23,6 +25,7 @@ export class AuthController {
         return this.authService.login(body) ;
     }
 
+    @ApiBearerAuth()
     @Post('reset-password')
     resetPassword(@Body() body: resetPasswordDto) {
         //const {email} = body;
@@ -34,7 +37,7 @@ export class AuthController {
         //const {email} = body;
         return this.authService.resetPasswordConfirmation(body);
     }
-
+    @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     @Delete('delete')
     deleteAccount(@Req() req: Request,@Body() DeleteAccountDto: deleteAccountDto) {

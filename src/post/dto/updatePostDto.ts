@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
 
-export class CreatePostDto {
+export class UpdatePostDto {
     @ApiProperty()
     @IsNotEmpty()
-    readonly title: string;
+    readonly title?: string;
     @ApiProperty()
     @IsNotEmpty()
-    readonly body: string;
+    readonly body?: string;
 }
